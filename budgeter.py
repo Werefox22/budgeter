@@ -20,8 +20,12 @@ class Income():
 	def add_paycheck(self, paycheck):
 		if type(paycheck) is Paycheck:
 			self.paychecks.append(paycheck)
-		elif type(paycheck) is float or int:
+			print(type(paycheck))
+
+		elif type(paycheck) is float or type(paycheck) is int:
 			self.paychecks.append(Paycheck(paycheck, datetime.now()))
+			print(type(paycheck))
+			
 		else:
 			raise ArgumentTypeError("Added paycheck was not of type Paycheck, int, or float")
 	
@@ -41,5 +45,8 @@ income = Income("Jack's Income")
 income.add_paycheck(check1)
 income.add_paycheck(check2)
 income.add_paycheck(check3)
+income.add_paycheck(123.45)
+income.add_paycheck(900)
+# income.add_paycheck("uh oh!") -> Throws ArgumentTypeError
 
 income.print_paychecks()
