@@ -9,6 +9,19 @@ class Paycheck():
 
 	def __str__(self) -> str:
 		return f'${self.amount}'
+	
+	def __add__(self, other):
+		return self.amount + other
+	
+	def __radd__(self, other):
+		return self.__add__(other)
+	
+	def __sub__(self, other):
+		return self.amount - other
+	
+	def __rsub__(self, other):
+		return self.__sub__(other)
+	
 
 
 class Income():
@@ -35,6 +48,12 @@ class Income():
 		for p in self.paychecks:
 			print(p)
 	
+	def get_average(self):
+		sum = 0
+		for i in range(len(self.paychecks)):
+			sum += self.paychecks[i]
+		return sum / len(self.paychecks)
+	
 	def __str__(self) -> str:
 		return f'{self.name}'
 
@@ -44,13 +63,6 @@ check3 = Paycheck(855.76)
 
 income = Income("Jack's Income")
 
-income.add_paycheck(check1)
-income.add_paycheck(check2)
-income.add_paycheck(check3)
-income.add_paycheck(123.45)
-income.add_paycheck(900)
-# income.add_paycheck("uh oh!") -> Throws ArgumentTypeError
+income.add_paychecks([check1, check2, check3, 123.45, 900])
 
-income.add_paychecks([check1, check2, check3, 123.45, 900, "uh oh!"])
-
-income.print_paychecks()
+print(income.get_average())
